@@ -10,7 +10,6 @@ function busready() {
 
     var a = $("#busNum").val();
     if ("" == a.trim()) {
-        //$("#timeTable").empty();
         document.getElementById("timeTable").innerHTML = "<p>Stop ID Required!!!</p>"
         $("#timeTable p").css({
             "color": "red",
@@ -24,10 +23,7 @@ function busready() {
         $("#timeTable").append("<table class='table table-bordered table-striped table-sm table-condensed' id='tab'><th>StopId</th><th>Route</th><th>Due</th><th>Last Update</th><tr>");
         for (var i = 0; i < a.length; i++) {
             var ll = a[i]
-            console.log(ll)
-            //setTimeout("abc(" + ll + ")", 10000)
             abc(ll);
-
         }
         $("#timeTable").append("</table>")
     }
@@ -84,9 +80,7 @@ function setCookie(cname, cvalue) {
     var d = new Date();
     d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toGMTString();
-    //this.cname=cname.replace(",","");
     document.cookie = cname + "=" + cvalue + "; " + expires
-    //window.location.reload();
 }
 
 function getVal(t) {
