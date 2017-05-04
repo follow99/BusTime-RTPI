@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+          integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+            integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"
+            integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
+            integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/newbj.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+//				document.cookie = "username=2900; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
+//				document.cookie = "username1=2790; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
+//				document.cookie = "username2=531; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
+//				console.log(document.cookie);
+
+            getCookie();
+        })
+    </script>
+    <title>My Bus Time</title>
+
+    <style type="text/css">
+        #warper {
+            width: 300px;
+        }
+
+        #togleList {
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<center>
+    <div id='warper'>
+        <div id="timeTable">
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Search</div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="busNum" value="" required="required"
+                       placeholder="Enter StopNumber" autofocus="autofocus"/>
+                <!--<span class="help-block"> Multi-input for stop Ids seperated by "," e.g. 2900,2790</span>-->
+                <!--<span class="help-block"> 如果测试期间出现任何异常导致不能使用 访问mybus.16mb.com/index1.html旧版</span>-->
+
+            </div>
+            <input class="btn btn-success form-control " type="button" value="提交" id="search"/>
+            <!--					<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+
+            <p></p>
+            <div id="favoritelist"></div>
+            <p></p>
+            <input class="btn btn-success form-control " id="add" type="button" value="添加"/>
+            <p></p>
+            <div id="togleList">
+                <input type="text" class="form-control" id="inputText"/><br/>
+                <input class="btn btn-success form-control" type="button" id="addinlist" value="确定"/>
+            </div>
+
+        </div>
+    </div>
+</center>
+</body>
+<script type="text/javascript">
+    $("#add").click(function () {
+
+        $("#togleList").slideDown();
+
+    });
+
+    $("#addinlist").click(function () {
+
+        var stop = $("#inputText").val();
+        if (" " === stop) {
+
+        } else {
+            getStopName(stop)
+            //setCookie(stop, stop);
+        }
+
+        $("#togleList").slideUp();
+        $("#favoritelist").empty();
+        getCookie();
+    });
+
+    var myVar;
+
+    $("#busNum").keypress(function (e) {
+
+        var key = e.which;
+        if (key === 13) {
+            $("#busNum").removeAttr("autofocus")
+            clearInterval(myVar); //先取消以前的 setIterval
+            busready();
+            myVar = setInterval("busready()", 30000)
+        }
+
+    })
+
+    $('#search ').click(function () {
+        clearInterval(myVar); //先取消以前的 setIterval
+        busready();
+        myVar = setInterval("busready()", 30000) //真是诡异的写法 setInterval调用方法有参数的话还要拼接
+        //给丫付个变量名 居然不影响他自动用 就是有变量名他也自动调用
+        //可是话说回来 为啥要给他个变量名类？ 因为 你不clearInterval(myVar)这个货居然是永远存在的
+        //换句话说 就是每次调用 都是再加一个的 setinterval 那个场面会壮观到不敢看 所以setinterval
+        //一旦创建 不清除丫就不消失
+    })
+</script>
+
+</html>
