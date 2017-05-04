@@ -20,11 +20,6 @@
     <script type="text/javascript" src="js/newbj.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-//				document.cookie = "username=2900; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
-//				document.cookie = "username1=2790; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
-//				document.cookie = "username2=531; expires=Thu, 18 Dec 2017 12:00:00 GMT; path=/";
-//				console.log(document.cookie);
-
             getCookie();
         })
     </script>
@@ -58,8 +53,6 @@
 
             </div>
             <input class="btn btn-success form-control " type="button" value="提交" id="search"/>
-            <!--					<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
-
             <p></p>
             <div id="favoritelist"></div>
             <p></p>
@@ -88,7 +81,6 @@
 
         } else {
             getStopName(stop)
-            //setCookie(stop, stop);
         }
 
         $("#togleList").slideUp();
@@ -113,11 +105,7 @@
     $('#search ').click(function () {
         clearInterval(myVar); //先取消以前的 setIterval
         busready();
-        myVar = setInterval("busready()", 30000) //真是诡异的写法 setInterval调用方法有参数的话还要拼接
-        //给丫付个变量名 居然不影响他自动用 就是有变量名他也自动调用
-        //可是话说回来 为啥要给他个变量名类？ 因为 你不clearInterval(myVar)这个货居然是永远存在的
-        //换句话说 就是每次调用 都是再加一个的 setinterval 那个场面会壮观到不敢看 所以setinterval
-        //一旦创建 不清除丫就不消失
+        myVar = setInterval("busready()", 30000)
     })
 </script>
 
